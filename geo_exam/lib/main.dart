@@ -68,7 +68,7 @@ class _LoginDemoState extends State<LoginDemo> {
             TextButton(
               onPressed: (){
                 //TODO FORGOT PASSWORD SCREEN GOES HERE
-                print('Forgot password button pressed');
+                //print('Forgot password button pressed');
               },
               child: const Text(
                 'Forgot Password',
@@ -104,26 +104,26 @@ class _LoginDemoState extends State<LoginDemo> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(
-                          context, MaterialPageRoute(builder: (_) => AdminPage()));
+                          context, MaterialPageRoute(builder: (_) => const AdminPage()));
                           },
-                        child: Text("Admin"),
+                        child: const Text("Admin"),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.red[800],
-                            minimumSize: Size(0, 80),
+                            minimumSize: const Size(0, 80),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                           )
                         ),)),
                   Expanded(
                       child: ElevatedButton(
-                        onPressed: () { //TODO MAKE USERPAGE AND REDIRECT TO IT
+                        onPressed: () {
                         Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => UserPage()));
-                        ;},
-                        child: Text("User"),
+                        context, MaterialPageRoute(builder: (_) => const UserPage()));
+                        },
+                        child: const Text("User"),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.red[800],
-                          minimumSize: Size(0, 80),
+                          minimumSize: const Size(0, 80),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           )
