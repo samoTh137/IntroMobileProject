@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'HomePage.dart';
+import 'AdminPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,13 +65,14 @@ class _LoginDemoState extends State<LoginDemo> {
                     hintText: 'Enter secure password'),
               ),
             ),
-            FlatButton(
+            TextButton(
               onPressed: (){
                 //TODO FORGOT PASSWORD SCREEN GOES HERE
+                print('Forgot password button pressed');
               },
               child: const Text(
                 'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                style: TextStyle(color: Colors.redAccent, fontSize: 15),
               ),
             ),
             Container(
@@ -79,10 +80,10 @@ class _LoginDemoState extends State<LoginDemo> {
               width: 250,
               decoration: BoxDecoration(
                   color: Colors.red[800], borderRadius: BorderRadius.circular(20)),
-              child: FlatButton(
+              child: TextButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomePage()));
+                      context, MaterialPageRoute(builder: (_) => AdminPage()));
                 },
                 child: const Text(
                   'Login',
@@ -91,24 +92,45 @@ class _LoginDemoState extends State<LoginDemo> {
               ),
             ),
             const SizedBox(
-              height: 130,
+              height: 50,
             ),
             const Text('New User? Create Account'),
 
-            Container( //Needs to be a button
-              alignment: Alignment.center,
-              color: Colors.red[700], //This needs to change to active/passive
-              height: 50,
-              width: MediaQuery.of(context).size.width/2,
-              child: const Text('ADMIN'),
+            const SizedBox(
+              height: 100,
             ),
-      Container( //Needs to be a button
-        alignment: Alignment.center,
-        color: Colors.red[700],
-        height: 50,
-        width: MediaQuery.of(context).size.width/2,
-        child: const Text('USER'),
-      )
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {print('Admin button pressed');}, //TODO REDIRECT TO ADMIN LOGIN
+                        //Something like this: Navigator.push(
+                        //                       context, MaterialPageRoute(builder: (_) => AdminPage()));
+                        child: Text("Admin"),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.red[800],
+                            minimumSize: Size(0, 80),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                          )
+                        ),)),
+                  Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {print('User button pressed');}, //TODO REDIRECT TO USER LOGIN
+                        //Something like this: Navigator.push(
+                        //                       context, MaterialPageRoute(builder: (_) => AdminPage()));
+                        child: Text("User"),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red[800],
+                          minimumSize: Size(0, 80),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          )
+                        ),)),
+                ],
+              ),
+            )
           ],
         ),
       ),
