@@ -35,108 +35,115 @@ class _QuestionSelectionState extends State<QuestionSelection> {
           columnWidths: const <int, TableColumnWidth>{
             0: IntrinsicColumnWidth(),
             1: FlexColumnWidth(),
-            2: FixedColumnWidth(64),
+            2: FixedColumnWidth(300),
           },
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
           children: <TableRow>[
             TableRow(
               children: <Widget>[
-                Container(
-                    height: 128,
-                    child: TextButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // Background color
-                      ),
-                      child: const Text(
-                        'Multiple Choice',
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => QuestionSelection()));
-                        //TODO Change page name
-                        ;
-                      },
-                    )),
                 TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.top,
-                  child: Container(
-                    height: 128,
-                    width: 32,
-                    color: Colors.white,
-                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(50,50,50,50),
+                child:   TextButton(
+                style: ElevatedButton.styleFrom(
+                primary: Colors.red[800], // Background color
+                    minimumSize: const Size(400, 228)
+
                 ),
-                Container(
-                    height: 128,
-                    child: TextButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // Background color
-                      ),
-                      child: const Text(
-                        'Code Correctie',
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => QuestionSelection()));
-                        //TODO Change page name
-                        ;
-                      },
-                    )),
+                child: const Text(
+                'Multiple Choice',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
+                onPressed: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                builder: (_) => QuestionSelection()));
+                //TODO Change page name
+                    ;
+                },
+                )
+        )
+
+                   ),
+                TableCell(
+
+                    child: Padding(
+                        padding: const EdgeInsets.fromLTRB(50,50,50,50),
+                        child:   TextButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.red[800], // Background color
+                            minimumSize: const Size(400, 228)
+                          ),
+                          child: const Text(
+                            'Code Correctie',
+                            style: TextStyle(color: Colors.white, fontSize: 20.0),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => QuestionSelection()));
+                            //TODO Change page name
+                                ;
+                          },
+                        )
+                    )
+
+                ),
               ],
             ),
             TableRow(
               children: <Widget>[
-                Container(
-                    height: 128,
-                    child: TextButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // Background color
-                      ),
-                      child: const Text(
-                        'Open Vraag',
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => QuestionSelection()));
-                        //TODO Change page name
-                        ;
-                      },
-                    )),
                 TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.top,
-                  child: Container(
-                    height: 128,
-                    width: 32,
-                    color: Colors.white,
-                  ),
+                    child: Padding(
+                        padding: const EdgeInsets.fromLTRB(50,50,50,50),
+                        child:   TextButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.red[800], // Background color
+                              minimumSize: const Size(400, 228)
+                          ),
+                          child: const Text(
+                            'Open Vraag',
+                            style: TextStyle(color: Colors.white, fontSize: 20.0),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => QuestionSelection()));
+                            //TODO Change page name
+                                ;
+                          },
+                        )
+                    )
+
                 ),
-                Container(
-                    height: 128,
-                    child: TextButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // Background color
-                      ),
-                      child: const Text(
-                        'Alle Vragen',
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => QuestionSelection()));
-                        //TODO Change page name
-                        ;
-                      },
-                    )),
+                TableCell(
+                    child: Padding(
+                        padding: const EdgeInsets.fromLTRB(50,50,50,50),
+                        child:   TextButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.red[800], // Background color
+                              minimumSize: const Size(400, 228)
+
+                          ),
+                          child: const Text(
+                            'Alle Vragen',
+                            style: TextStyle(color: Colors.white, fontSize: 20.0),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => QuestionSelection()));
+                            //TODO Change page name
+                                ;
+                          },
+                        )
+                    )
+
+                ),
               ],
             ),
           ],

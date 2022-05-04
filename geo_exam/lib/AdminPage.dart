@@ -43,6 +43,7 @@ class _AdminPageState extends State<AdminPage> {
             2: FixedColumnWidth(300),
           },
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+
           children: <TableRow>[
             TableRow(
               children: <Widget>[
@@ -59,7 +60,7 @@ class _AdminPageState extends State<AdminPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => const QuestionSelection()));
+                                  builder: (_) => QuestionSelection()));
                         },
                         child: const Text('Maak een examen'),
                         style: ElevatedButton.styleFrom(
