@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'AdminPage.dart';
+import 'UserPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -81,9 +81,7 @@ class _LoginDemoState extends State<LoginDemo> {
               decoration: BoxDecoration(
                   color: Colors.red[800], borderRadius: BorderRadius.circular(20)),
               child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => AdminPage()));
+                onPressed: () { //TODO MAKE ACTUAL LOGIN SYSTEM (FIREBASE)
                 },
                 child: const Text(
                   'Login',
@@ -104,9 +102,10 @@ class _LoginDemoState extends State<LoginDemo> {
                 children: <Widget>[
                   Expanded(
                       child: ElevatedButton(
-                        onPressed: () {print('Admin button pressed');}, //TODO REDIRECT TO ADMIN LOGIN
-                        //Something like this: Navigator.push(
-                        //                       context, MaterialPageRoute(builder: (_) => AdminPage()));
+                        onPressed: () {
+                          Navigator.push(
+                          context, MaterialPageRoute(builder: (_) => AdminPage()));
+                          },
                         child: Text("Admin"),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.red[800],
@@ -117,9 +116,10 @@ class _LoginDemoState extends State<LoginDemo> {
                         ),)),
                   Expanded(
                       child: ElevatedButton(
-                        onPressed: () {print('User button pressed');}, //TODO REDIRECT TO USER LOGIN
-                        //Something like this: Navigator.push(
-                        //                       context, MaterialPageRoute(builder: (_) => AdminPage()));
+                        onPressed: () { //TODO MAKE USERPAGE AND REDIRECT TO IT
+                        Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => UserPage()));
+                        ;},
                         child: Text("User"),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.red[800],

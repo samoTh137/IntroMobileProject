@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AdminPage extends StatefulWidget {
+  const AdminPage({Key? key}) : super(key: key);
+
   @override
   _AdminPageState createState() => _AdminPageState();
 }
@@ -10,25 +12,39 @@ class _AdminPageState extends State<AdminPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Page'),
+        automaticallyImplyLeading: false,
+        title: const Text('Admin Page'),
+          backgroundColor: Colors.red[800],
+          actions: <Widget>[
+      Padding(
+      padding: const EdgeInsets.only(right: 20.0),
+        child: GestureDetector(
+          onTap: () {},
+            child: TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              }, child: const Text(
+              'Logout',
+              style:TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            ),
+        )
+    ),
+]
       ),
       body: Center(
-        child: Container( //TODO CONVERT TO ELEVATEDBUTTON
-          height: 80,
-          width: 150,
-          decoration: BoxDecoration(
-              color: Colors.red[800], borderRadius: BorderRadius.circular(10)),
-          child: TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text(
-              'Back to login',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-          ),
-        ),
+        child: ElevatedButton(
+        onPressed: () { //TODO ADD REDIRECTION TO EXAM MAKING PAGE HERE
+          //Navigator.push(
+          //context, MaterialPageRoute(builder: (_) => ExamMakerPage()));
+        ;},
+        child: const Text('Maak een examen'),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.red[800],
+          minimumSize: Size(0, 80),
+          shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
       ),
-    );
+    ))));
   }
 }
