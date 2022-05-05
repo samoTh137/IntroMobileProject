@@ -31,10 +31,11 @@ class _ExamQuestionsState extends State<ExamQuestions> {
                   ),
                 )),
           ]),
-        body: Center(
+        body: const Center(
           child: Text('Exam Questions',
-          style:TextStyle(fontSize: 30),
-        ),
+            style:TextStyle(fontSize: 30),
+            //TODO qe
+          ),
         ),
     );
   }
