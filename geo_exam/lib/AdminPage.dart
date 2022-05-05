@@ -96,7 +96,7 @@ class _AdminPageState extends State<AdminPage> {
                   child: ElevatedButton(
                       onPressed: () {
                       },
-                      child: const Text('Wachtwoord'),
+                      child: const Text('Wachtwoord wijzigen'),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.red[800],
                         minimumSize: const Size(100, 80),

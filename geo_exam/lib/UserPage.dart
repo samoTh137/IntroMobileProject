@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geo_exam/AdminPage.dart';
+import 'User/StartExam.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class _UserPageState extends State<UserPage> {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text('User Page'),
+          title: const Text('User'),
           backgroundColor: Colors.red[800],
           actions: <Widget>[
             Padding(
@@ -33,10 +34,8 @@ class _UserPageState extends State<UserPage> {
             ),
           ]
       ),
-      body: const Center(
-        child: Text('This will be the page for Users',
-          style:TextStyle(fontSize: 30),),
-      ),
+      body:
+        StartExam(),
     );
   }
 }
