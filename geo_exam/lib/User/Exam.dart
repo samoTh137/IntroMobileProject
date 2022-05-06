@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 class ExamQuestions extends StatefulWidget {
   const ExamQuestions({Key? key}) : super(key: key);
@@ -6,6 +9,8 @@ class ExamQuestions extends StatefulWidget {
   @override
   State<ExamQuestions> createState() => _ExamQuestionsState();
 }
+
+
 
 class _ExamQuestionsState extends State<ExamQuestions> {
   @override
@@ -32,10 +37,35 @@ class _ExamQuestionsState extends State<ExamQuestions> {
                 )),
           ]),
         body: Center(
-          child: Text('Exam Questions',
-          style:TextStyle(fontSize: 30),
-        ),
-        ),
+         // child: Text('Exam Questions',
+          //style:TextStyle(fontSize: 30),
+        //),
+          child: Container(
+              margin: EdgeInsets.all(24),
+              padding: EdgeInsets.only(top: 24),
+              alignment: Alignment.topLeft,
+
+              child: CircularCountDownTimer(
+                //https://pub.dev/packages/circular_countdown_timer
+                duration: 3600,
+                fillColor: Colors.purpleAccent,
+                fillGradient: null,
+                ringColor: Colors.grey,
+
+                height: 100,
+                width: 100,
+
+                onComplete: () {
+                  debugPrint('Countdown Ended');
+                },
+
+              )
+          )
+
+
+
+
+    ),
     );
   }
 }
