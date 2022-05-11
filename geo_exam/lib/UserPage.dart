@@ -26,7 +26,7 @@ class _UserPageState extends State<UserPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     }, child: const Text(
-                    'Logout',
+                    'Log out',
                     style:TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   ),
