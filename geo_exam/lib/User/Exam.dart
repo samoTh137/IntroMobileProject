@@ -10,7 +10,33 @@ class ExamQuestions extends StatefulWidget {
   State<ExamQuestions> createState() => _ExamQuestionsState();
 }
 
-class _ExamQuestionsState extends State<ExamQuestions> {
+class _ExamQuestionsState extends State<ExamQuestions> with WidgetsBindingObserver {
+  int appInBackgroundCounter = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleSate(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    final isBackground = state == AppLifecycleState.paused;
+    if(isBackground == true)
+      {
+        appInBackgroundCounter++;
+      }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +70,11 @@ class _ExamQuestionsState extends State<ExamQuestions> {
               alignment: Alignment.topLeft,
               child: CircularCountDownTimer(
                 //https://pub.dev/packages/circular_countdown_timer
-                duration: 3600,
-                fillColor: Colors.purpleAccent,
+                controller: CountDownController(),
+                isReverse: true,
+                initialDuration: 0,
+                duration: 600,
+                fillColor: (Colors.red[300])!,
                 fillGradient: null,
                 ringColor: Colors.grey,
 
