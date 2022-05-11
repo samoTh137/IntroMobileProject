@@ -19,6 +19,7 @@ class _UserLoginTabState extends State<UserLoginTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("User"),
         backgroundColor: Colors.red[800],
       ),

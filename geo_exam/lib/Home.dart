@@ -12,8 +12,8 @@ class MainHome extends StatefulWidget {
 class _MainHomeState extends State<MainHome> {
   int currentTab = 0;
   final screens = [
-    AdminLoginTab(),
-    UserLoginTab()
+    const AdminLoginTab(),
+    const UserLoginTab()
   ];
 
   void _onItemTapped(int index) {
