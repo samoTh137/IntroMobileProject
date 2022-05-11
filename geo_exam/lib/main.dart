@@ -1,18 +1,35 @@
 import 'package:flutter/material.dart';
 import 'Home.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainHome(),
+      home: FutureBuilder(
+        future: _fbApp,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print('An error occurred! ${snapshot.error.toString()}');
+            return const Text('Oops, something went wrong :(');
+          } else if (snapshot.hasData) {
+            return const MainHome();
+          } else {
+            return const Center(
+              child: CircularProgressIndicator()
+            );
+          }
+        }
+      )
     );
   }
 }

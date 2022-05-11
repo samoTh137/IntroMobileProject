@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "932517148487",
+    "project_id": "geo-exam-36ca2",
+    "storage_bucket": "geo-exam-36ca2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932517148487:android:4bb76c43f6c714f7813e62",
+        "android_client_info": {
+          "package_name": "com.example.geo_exam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932517148487-jno3t83ohi4bradf8mja87lrg35o5edg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPk_oYQ7IsOXnmFRBfHsj-dXAEQ6FCWu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932517148487-jno3t83ohi4bradf8mja87lrg35o5edg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
