@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class AddCodeCorrection extends StatefulWidget {
+class OpenQuestion extends StatefulWidget {
   @override
-  _AddCodeCorrectionState createState() => _AddCodeCorrectionState();
+  _OpenQuestionState createState() => _OpenQuestionState();
 }
 
-class _AddCodeCorrectionState extends State<AddCodeCorrection> {
+class _OpenQuestionState extends State<OpenQuestion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: const Text('Code Correctie Vraag Toevoegen'),
+            title: const Text('Open Vraag'),
             backgroundColor: Colors.red[800],
             actions: <Widget>[
               Padding(
@@ -31,7 +31,7 @@ class _AddCodeCorrectionState extends State<AddCodeCorrection> {
             ]),
         body: Center(
             child: Text(
-              'Hier komt een code correctie vraag.',
+              'Hier komt een open vraag.',
               textAlign: TextAlign.center,
               style: const TextStyle(fontWeight: FontWeight.bold),
             )

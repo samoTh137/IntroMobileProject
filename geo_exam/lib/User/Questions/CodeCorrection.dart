@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class AddCodeCorrection extends StatefulWidget {
+class CodeCorrection extends StatefulWidget {
   @override
-  _AddCodeCorrectionState createState() => _AddCodeCorrectionState();
+  _CodeCorrectionState createState() => _CodeCorrectionState();
 }
 
-class _AddCodeCorrectionState extends State<AddCodeCorrection> {
+class _CodeCorrectionState extends State<CodeCorrection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: const Text('Code Correctie Vraag Toevoegen'),
+            title: const Text('Code Correctie'),
             backgroundColor: Colors.red[800],
             actions: <Widget>[
               Padding(
@@ -35,7 +35,7 @@ class _AddCodeCorrectionState extends State<AddCodeCorrection> {
               textAlign: TextAlign.center,
               style: const TextStyle(fontWeight: FontWeight.bold),
             )
-        )
+            )
     );
   }
 }

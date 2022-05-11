@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:geo_exam/Admin/Add_questions/AddCodeCorrection.dart';
+import 'package:geo_exam/Admin/Add_questions/AddMultipleChoice.dart';
+import 'package:geo_exam/Admin/Add_questions/AddOpenQuestion.dart';
+import 'package:geo_exam/Admin/Add_questions/AllQuestions.dart';
+import 'package:geo_exam/User/Questions/CodeCorrection.dart';
+import 'package:geo_exam/User/Questions/OpenQuestion.dart';
 
 class QuestionSelection extends StatefulWidget {
   @override
@@ -58,7 +64,7 @@ class _QuestionSelectionState extends State<QuestionSelection> {
                 Navigator.push(
                 context,
                 MaterialPageRoute(
-                builder: (_) => QuestionSelection()));
+                builder: (_) => AddMultipleChoice()));
                 //TODO Change page name
                     ;
                 },
@@ -83,7 +89,7 @@ class _QuestionSelectionState extends State<QuestionSelection> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => QuestionSelection()));
+                                    builder: (_) => AddCodeCorrection()));
                             //TODO Change page name
                                 ;
                           },
@@ -111,7 +117,7 @@ class _QuestionSelectionState extends State<QuestionSelection> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => QuestionSelection()));
+                                    builder: (_) => AddOpenQuestion()));
                             //TODO Change page name
                                 ;
                           },
@@ -136,7 +142,7 @@ class _QuestionSelectionState extends State<QuestionSelection> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => QuestionSelection()));
+                                    builder: (_) => AllQuestions()));
                             //TODO Change page name
                                 ;
                           },
