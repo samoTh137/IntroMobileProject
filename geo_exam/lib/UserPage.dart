@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:geo_exam/AdminPage.dart';
+
 import 'User/StartExam.dart';
+/*import 'package:geo_exam/AdminPage.dart';
+import 'User/StartExam.dart';*/
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -35,7 +37,7 @@ class _UserPageState extends State<UserPage> {
           ]
       ),
       body:
-        StartExam(),
+          StartExam(),
     );
   }
 }

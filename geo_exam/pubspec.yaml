@@ -27,6 +27,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  dropdown_button2: ^1.4.0
+
   flutter:
     sdk: flutter
   circular_countdown_timer:
