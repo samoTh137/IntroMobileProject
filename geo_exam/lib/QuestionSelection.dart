@@ -3,8 +3,6 @@ import 'package:geo_exam/Admin/Add_questions/AddCodeCorrection.dart';
 import 'package:geo_exam/Admin/Add_questions/AddMultipleChoice.dart';
 import 'package:geo_exam/Admin/Add_questions/AddOpenQuestion.dart';
 import 'package:geo_exam/Admin/Add_questions/AllQuestions.dart';
-import 'package:geo_exam/User/Questions/CodeCorrection.dart';
-import 'package:geo_exam/User/Questions/OpenQuestion.dart';
 
 class QuestionSelection extends StatefulWidget {
   @override
