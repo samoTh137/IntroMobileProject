@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'QuestionSelection.dart';
 
@@ -9,6 +10,9 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
+
+  final auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +27,7 @@ class _AdminPageState extends State<AdminPage> {
                   onTap: () {},
                   child: TextButton(
                     onPressed: () {
+                      auth.signOut();
                       Navigator.pop(context);
                     },
                     child: const Text(
@@ -89,7 +94,7 @@ class _AdminPageState extends State<AdminPage> {
                   ),
                 ),
                 TableCell(
-                  //TableCell voor Wachtwoord
+                  //TableCell voor Wachtwoord wijzigen
                   verticalAlignment: TableCellVerticalAlignment.top,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),

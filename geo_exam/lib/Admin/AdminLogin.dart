@@ -1,5 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:geo_exam/AdminPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AdminLoginTab extends StatefulWidget {
   const AdminLoginTab({Key? key}) : super(key: key);
@@ -8,7 +11,14 @@ class AdminLoginTab extends StatefulWidget {
   State<AdminLoginTab> createState() => _AdminLoginTabState();
 }
 
+String _error = '';
+String _email = '';
+String _password = '';
+
 class _AdminLoginTabState extends State<AdminLoginTab> {
+
+  final auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,29 +35,42 @@ class _AdminLoginTabState extends State<AdminLoginTab> {
                     child: Image.asset('asset/images/ApLogoColor.png')),
               ),
             ),
-            const Padding(
+            //Email field
+             Padding(
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                decoration: InputDecoration(
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
                     hintText: 'Enter valid email id as abc@gmail.com'),
+                onChanged: (value) {
+                  setState(() {
+                    _email = value.trim();
+                  });
+                }
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
+            //Password field
+             Padding(
+              padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
                     hintText: 'Enter secure password'),
+                  onChanged: (value) {
+                    setState(() {
+                      _password = value.trim();
+                    });
+                  }
               ),
             ),
+            //Forgot password
             TextButton(
               onPressed: (){
                 //TODO FORGOT PASSWORD SCREEN GOES HERE
@@ -58,70 +81,96 @@ class _AdminLoginTabState extends State<AdminLoginTab> {
                 style: TextStyle(color: Colors.redAccent, fontSize: 15),
               ),
             ),
+            //Login button
             Container(
               height: 50,
               width: 250,
               decoration: BoxDecoration(
                   color: Colors.red[800], borderRadius: BorderRadius.circular(20)),
               child: TextButton(
-                onPressed: () { //TODO MAKE ACTUAL LOGIN SYSTEM (FIREBASE)
-                  //!!!USING LOGIN BUTTON TO ACCESS ADMINPAGE ==> REMOVE THIS LATER!!!
+                onPressed: () async {
+                  try {
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: _email,
+                        password: _password
+
+                    );
+                  } on FirebaseAuthException catch (e) {
+                    if (!_email.contains('@')) {
+                      _error = e.toString();
+                      showAlertDialog(context);
+                    } else {
+                      _error = e.toString();
+                      showAlertDialog(context);
+                    }
+                  }
+                  print ('user logged in');
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (_) => AdminPage()));
-                },
-                child: const Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
-              ),
+                  },
+               child: const Text(
+                'Login',
+                style: TextStyle(color: Colors.white, fontSize: 25),
+              ),),
             ),
             const SizedBox(
               height: 50,
             ),
-            const Text('New User? Create Account'),
-
+            //Create account
+             TextButton(
+              child: const Text('New user? Create your account.'),
+              onPressed: () async {
+                try {
+                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                    email: _email,
+                    password: _password,
+                  );
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'weak-password') {
+                    _error = e.toString();
+                    showAlertDialog(context);
+                  } else if (e.code == 'email-already-in-use') {
+                    _error = e.toString();
+                    showAlertDialog(context);
+                  }
+                }           }
+            ),
             const SizedBox(
               height: 100,
             ),
-            /*ListTile(
-              title: Row(
-                children: <Widget>[
-                  Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (_) => const AdminPage()));
-                        },
-                        child: const Text("Admin"),
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.red[800],
-                            minimumSize: const Size(0, 80),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            )
-                        ),)),
-                  Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (_) => const UserPage()));
-                        },
-                        child: const Text("User"),
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.red[800],
-                            minimumSize: const Size(0, 80),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            )
-                        ),)),
-                ],
-              ),
-            )*/
           ],
         ),
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context) {
+
+  // set up the button
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Error Occured"),
+    content: Text(_error),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
