@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddCodeCorrection extends StatefulWidget {
+  const AddCodeCorrection({Key? key}) : super(key: key);
+
   @override
   _AddCodeCorrectionState createState() => _AddCodeCorrectionState();
 }
@@ -29,13 +31,59 @@ class _AddCodeCorrectionState extends State<AddCodeCorrection> {
                     ),
                   )),
             ]),
-        body: Center(
-            child: Text(
-              'Hier komt een code correctie vraag.',
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            )
+        body: Column(
+          children: [
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children:[
+
+                  Flexible(child:
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child :TextFormField(
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Voer de te corrigeren code in...',
+                      ),
+                    ),
+                  ),
+                  ),
+
+                  Flexible(child:
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child :TextFormField(
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Voer de gecorrigeerde code in...',
+                      ),
+                    ),
+                  ),
+                  ),
+                ]),
+
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children:[
+
+                  Flexible(child :
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red[800], // set the background color
+                        fixedSize: const Size(240,80),
+                      ),
+                      child: const Text('Vraag toevoegen'),
+                    ),
+                  ),
+                  ),
+                ])
+
+          ],
         )
     );
   }
 }
+
