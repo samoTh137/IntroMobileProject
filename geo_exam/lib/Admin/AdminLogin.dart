@@ -90,25 +90,27 @@ class _AdminLoginTabState extends State<AdminLoginTab> {
               child: TextButton(
                 onPressed: () async {
                   try {
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: _email,
-                        password: _password
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: _email,
+                      password: _password
 
-                    );
-                  } on FirebaseAuthException catch (e) {
+                  );
+                  if (await FirebaseAuth.instance.currentUser != null) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => AdminPage()));
+                  }
+                  }
+                   on FirebaseAuthException catch (e) {
                     if (!_email.contains('@')) {
                       _error = e.toString();
                       showAlertDialog(context);
-                    } else {
+                    } else if (e != null ){
                       _error = e.toString();
                       showAlertDialog(context);
                     }
                   }
-                  print ('user logged in');
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => AdminPage()));
                   },
                child: const Text(
                 'Login',
