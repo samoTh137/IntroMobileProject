@@ -29,12 +29,61 @@ class _AddMultipleChoiceState extends State<AddMultipleChoice> {
                     ),
                   )),
             ]),
-        body: Center(
-            child: Text(
-              'Hier komt een code multiple choice vraag.',
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            )
+        body: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Flexible(child:
+                Padding(
+                  padding: EdgeInsets.all(24),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Voer de vraag in...',
+                    ),
+                  ),
+                ),
+                ),
+              ],
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Flexible(child:
+                Padding(
+                  padding: EdgeInsets.all(24),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Voer de antwoorden in gescheiden door ; ...',
+                    ),
+                  ),
+                ),
+                ),
+              ],
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Flexible(child :
+                Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red[800], // set the background color
+                      fixedSize: const Size(240,80),
+                    ),
+                    child: const Text('Vraag toevoegen'),
+                  ),
+                ),
+                ),
+              ],
+            ),
+          ],
         )
     );
   }
