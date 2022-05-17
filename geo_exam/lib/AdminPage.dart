@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geo_exam/Admin/ChangePassword.dart';
+import 'package:geo_exam/Admin/Manage_students/StudentList.dart';
 import 'QuestionSelection.dart';
 
 class AdminPage extends StatefulWidget {
@@ -83,6 +85,10 @@ class _AdminPageState extends State<AdminPage> {
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: ElevatedButton(
                       onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => StudentList()));
                       },
                       child: const Text('Studenten'),
                       style: ElevatedButton.styleFrom(
@@ -100,6 +106,10 @@ class _AdminPageState extends State<AdminPage> {
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: ElevatedButton(
                       onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => ChangePassword()));
                       },
                       child: const Text('Wachtwoord wijzigen'),
                       style: ElevatedButton.styleFrom(

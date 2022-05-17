@@ -68,6 +68,23 @@ class _AddMultipleChoiceState extends State<AddMultipleChoice> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Flexible(child:
+                Padding(
+                  padding: EdgeInsets.all(24),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Voer het correcte antwoord in...',
+                    ),
+                  ),
+                ),
+                ),
+              ],
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
                 Flexible(child :
                 Padding(
                   padding: const EdgeInsets.all(24.0),
