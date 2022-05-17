@@ -32,6 +32,16 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for macos - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -45,6 +55,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '932517148487',
     projectId: 'geo-exam-36ca2',
     authDomain: 'geo-exam-36ca2.firebaseapp.com',
+    databaseURL: 'https://geo-exam-36ca2-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'geo-exam-36ca2.appspot.com',
     measurementId: 'G-N0RSR96TT9',
   );
@@ -54,6 +65,7 @@ class DefaultFirebaseOptions {
     appId: '1:932517148487:android:4bb76c43f6c714f7813e62',
     messagingSenderId: '932517148487',
     projectId: 'geo-exam-36ca2',
+    databaseURL: 'https://geo-exam-36ca2-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'geo-exam-36ca2.appspot.com',
   );
 }

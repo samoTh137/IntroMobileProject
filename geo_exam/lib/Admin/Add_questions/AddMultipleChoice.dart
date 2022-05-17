@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:geo_exam/Admin/ChangePassword.dart';
+
+FirebaseDatabase database = FirebaseDatabase.instance;
+
+String _vraag = "";
+String _juistantwoord = "";
+List<String> _fouteantwoorden = [];
+String _foutantwoord = "";
+String _error= "";
 
 class AddMultipleChoice extends StatefulWidget {
   @override
@@ -34,74 +44,155 @@ class _AddMultipleChoiceState extends State<AddMultipleChoice> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Flexible(child:
-                Padding(
-                  padding: EdgeInsets.all(24),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Voer de vraag in...',
-                    ),
+                Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.all(24),
+                    child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Voer de vraag in',
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            _vraag = value;
+                          });
+                        }),
                   ),
-                ),
                 ),
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Flexible(child:
-                Padding(
-                  padding: EdgeInsets.all(24),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Voer de antwoorden in gescheiden door ; ...',
-                    ),
-                  ),
+                Flexible(
+                  child: Padding(
+                      padding: EdgeInsets.all(24),
+                      child: TextButton.icon(
+                        onPressed: () {
+                          _displayDialog();
+                        },
+                        icon: Icon(Icons.add, size: 18),
+                        label: Text("Voeg een fout antwoord toe"),
+                      )),
                 ),
+                Text(_fouteantwoorden.toString()),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.all(24),
+                    child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Voer het correcte antwoord in',
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            _juistantwoord = value;
+                          });
+                        }),
+                  ),
                 ),
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Flexible(child:
-                Padding(
-                  padding: EdgeInsets.all(24),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Voer het correcte antwoord in...',
-                    ),
-                  ),
-                ),
-                ),
-              ],
-            ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        _foutantwoord = _fouteantwoorden.toString();
+                        _foutantwoord.replaceFirst("[", "");
+                        _foutantwoord.replaceRange(_fouteantwoorden.length-1,_fouteantwoorden.length,"");
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Flexible(child :
-                Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.red[800], // set the background color
-                      fixedSize: const Size(240,80),
+                        FirebaseDatabase.instance.ref("Vragen/$_vraag")
+                        .set({
+                          "Vraag": _vraag,
+                          "Correct Antwoord": {_juistantwoord},
+                          "Foute Antwoorden": {_foutantwoord}
+                        })
+                        .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context);})
+                        .catchError((error) {_error = "An error occured! Please try again.";showErrorDialog(context);});
+                        _fouteantwoorden.clear();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red[800], // set the background color
+                        fixedSize: const Size(240, 80),
+                      ),
+                      child: const Text('Vraag toevoegen'),
                     ),
-                    child: const Text('Vraag toevoegen'),
                   ),
-                ),
                 ),
               ],
             ),
           ],
-        )
+        ));
+  }
+
+  final TextEditingController _textFieldController = TextEditingController();
+
+  Future<void> _displayDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add a new answer'),
+          content: TextField(
+            controller: _textFieldController,
+            decoration: const InputDecoration(hintText: 'Type a wrong answer'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Add'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _addWrongAnswer(_textFieldController.text);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
+
+  void _addWrongAnswer(String name) {
+    setState(() {
+      _fouteantwoorden.add(_textFieldController.text);
+    });
+    _textFieldController.clear();
+  }
+}
+
+showErrorDialog(BuildContext context) {
+
+  // set up the button
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Something happened!"),
+    content: Text(_error),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
