@@ -69,7 +69,6 @@ class _UserLoginTabState extends State<UserLoginTab> {
               ),
             ),
            ),
-
         ],
       ),
     );

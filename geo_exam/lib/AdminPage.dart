@@ -31,7 +31,7 @@ class _AdminPageState extends State<AdminPage> {
                       Navigator.pop(context);
                     },
                     child: const Text(
-                      'Logout',
+                      'Log out',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
