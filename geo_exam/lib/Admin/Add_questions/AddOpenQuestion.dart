@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+FirebaseDatabase database = FirebaseDatabase.instance;
+
+String _vraag = "";
+String _antwoord = "";
+String _error= "";
 
 class AddOpenQuestion extends StatefulWidget {
   @override
@@ -38,11 +45,15 @@ class _AddOpenQuestionState extends State<AddOpenQuestion> {
                   Padding(
                     padding: EdgeInsets.all(24),
                     child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Voer de vraag in...',
-                      ),
-                    ),
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Voer de vraag in',
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            _vraag = value;
+                          });
+                        }),
                   ),
                 ),
               ],
@@ -55,11 +66,15 @@ class _AddOpenQuestionState extends State<AddOpenQuestion> {
                 Padding(
                   padding: EdgeInsets.all(24),
                   child: TextFormField(
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Voer het antwoord in...',
-                    ),
-                  ),
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Voer het antwoord in',
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          _antwoord = value;
+                        });
+                      }),
                 ),
                 ),
               ],
@@ -72,7 +87,15 @@ class _AddOpenQuestionState extends State<AddOpenQuestion> {
                     Padding(
                     padding: const EdgeInsets.all(24.0),
                       child: ElevatedButton(
-                      onPressed: () {},
+                        onPressed: () async {
+                          FirebaseDatabase.instance.ref("Vragen/OpenVragen/$_vraag") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
+                              .set({ //Maak het stuk JSON
+                            "Vraag": _vraag,
+                            "Correct Antwoord": {_antwoord}
+                          })
+                              .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context);}) //Dialog voor success
+                              .catchError((error) {_error = "An error occured! Please try again.";showErrorDialog(context);}); //Dialog voor error
+                        },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.red[800], // set the background color
                         fixedSize: const Size(240,80),
@@ -87,4 +110,32 @@ class _AddOpenQuestionState extends State<AddOpenQuestion> {
         ),
     );
   }
+}
+
+showErrorDialog(BuildContext context) {
+
+  // set up the button
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Something happened!"),
+    content: Text(_error),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

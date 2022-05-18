@@ -106,22 +106,19 @@ class _AddMultipleChoiceState extends State<AddMultipleChoice> {
                     padding: const EdgeInsets.all(24.0),
                     child: ElevatedButton(
                       onPressed: () async {
-                        _foutantwoord = _fouteantwoorden.toString();
-                        _foutantwoord.replaceFirst("[", "");
-                        _foutantwoord.replaceRange(_fouteantwoorden.length-1,_fouteantwoorden.length,"");
-
-                        FirebaseDatabase.instance.ref("Vragen/$_vraag")
-                        .set({
-                          "Vraag": _vraag,
-                          "Correct Antwoord": {_juistantwoord},
-                          "Foute Antwoorden": {_foutantwoord}
-                        })
-                        .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context);})
-                        .catchError((error) {_error = "An error occured! Please try again.";showErrorDialog(context);});
-                        _fouteantwoorden.clear();
+                        _foutantwoord = _fouteantwoorden.toString(); //Naar string om variabele in de JSON te plaatsen
+                        FirebaseDatabase.instance.ref("Vragen/MultipleChoice/$_vraag") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
+                          .set({ //Maak het stuk JSON
+                            "Vraag": _vraag,
+                            "Correct Antwoord": {_juistantwoord},
+                            "Foute Antwoorden": {_foutantwoord}
+                          })
+                        .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context);}) //Dialog voor success
+                        .catchError((error) {_error = "An error occured! Please try again.";showErrorDialog(context);}); //Dialog voor error
+                        _fouteantwoorden.clear(); //Clear zodat de lijst van foute antwoorden leeg is
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red[800], // set the background color
+                        primary: Colors.red[800],
                         fixedSize: const Size(240, 80),
                       ),
                       child: const Text('Vraag toevoegen'),

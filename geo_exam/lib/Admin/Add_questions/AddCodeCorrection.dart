@@ -1,4 +1,12 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+
+FirebaseDatabase database = FirebaseDatabase.instance;
+
+String _titel ="TestTitel";  //TODO IMPLEMENT ENTERING A TITLE
+String _codeToCorrect = "";
+String _correctedCode = "";
+String _error= "";
 
 class AddCodeCorrection extends StatefulWidget {
   const AddCodeCorrection({Key? key}) : super(key: key);
@@ -40,24 +48,32 @@ class _AddCodeCorrectionState extends State<AddCodeCorrection> {
                   Flexible(child:
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child :TextFormField(
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Voer de te corrigeren code in...',
-                      ),
-                    ),
+                    child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Voer de te corrigeren code in',
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            _codeToCorrect = value;
+                          });
+                        }),
                   ),
                   ),
 
                   Flexible(child:
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child :TextFormField(
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Voer de gecorrigeerde code in...',
-                      ),
-                    ),
+                    child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Voer de correcte code in',
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            _correctedCode = value;
+                          });
+                        }),
                   ),
                   ),
                 ]),
@@ -70,11 +86,17 @@ class _AddCodeCorrectionState extends State<AddCodeCorrection> {
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red[800], // set the background color
-                        fixedSize: const Size(240,80),
-                      ),
+                      onPressed: () async {
+                        _correctedCode.toString();
+                        _codeToCorrect.toString();
+                        FirebaseDatabase.instance.ref("Vragen/CodeCorrectieVragen/$_titel") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
+                            .set({ //Maak het stuk JSON
+                          "Code Te Corrigeren": _codeToCorrect,
+                          "Gecorrigeerde Code": {_correctedCode}
+                        })
+                            .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context);}) //Dialog voor success
+                            .catchError((error) {_error = "An error occured! Please try again.";showErrorDialog(context);}); //Dialog voor error
+                      },
                       child: const Text('Vraag toevoegen'),
                     ),
                   ),
@@ -85,5 +107,33 @@ class _AddCodeCorrectionState extends State<AddCodeCorrection> {
         )
     );
   }
+}
+
+showErrorDialog(BuildContext context) {
+
+  // set up the button
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Something happened!"),
+    content: Text(_error),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
 
