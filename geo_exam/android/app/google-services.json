@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "932517148487",
+    "firebase_url": "https://geo-exam-36ca2-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "geo-exam-36ca2",
     "storage_bucket": "geo-exam-36ca2.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "932517148487-dbotvhh1s8o8pt98teimk5gqkqa9shmb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.geo_exam",
+            "certificate_hash": "f9b337583b6767f64ad14d4091354dadf8f04aa7"
+          }
+        },
         {
           "client_id": "932517148487-jno3t83ohi4bradf8mja87lrg35o5edg.apps.googleusercontent.com",
           "client_type": 3
