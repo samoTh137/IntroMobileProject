@@ -125,11 +125,6 @@ class _ChangePassword extends State<ChangePassword> {
                             password: _password
 
                         );
-                        if (await FirebaseAuth.instance.currentUser != null) {
-                          // check nieuw wachtwoord
-                          // voer wijziging door
-
-                        }
                       }
                       on FirebaseAuthException catch (e) {
                         if (!_email.contains('@')) {

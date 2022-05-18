@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geo_exam/Admin/Manage_students/Map.dart';
 
 class StudentList extends StatefulWidget {
   @override
@@ -29,12 +30,36 @@ class _StudentList extends State<StudentList> {
                     ),
                   )),
             ]),
-        body: Center(
-            child: Text(
-              'Hier komt een lijst van alle studenten.',
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            )
+        body: Column(
+            children:[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children:[
+                  Text(
+                    'Hier komt een lijst van alle studenten.',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => Map()));
+                      },
+                      child: const Text('Kaart tonen'),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.red[800],
+                          minimumSize: const Size(100, 80),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ))),
+                ],
+              ),
+
+            ]
+
         )
     );
   }

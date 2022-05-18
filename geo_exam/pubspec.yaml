@@ -40,6 +40,11 @@ dependencies:
   firebase_core: ^1.16.0
   firebase_auth: ^3.3.17
 
+  latlong: ^0.6.1
+  flutter_map: any
+  flutter_map_marker_cluster: any
+  geolocator: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
