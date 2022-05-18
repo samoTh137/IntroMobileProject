@@ -45,6 +45,7 @@ dependencies:
   flutter_map: any
   flutter_map_marker_cluster: any
   geolocator: any
+  geocoding: ^2.0.4
 
 dev_dependencies:
   flutter_test:

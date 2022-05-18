@@ -14,17 +14,7 @@ class _Map extends State<Map> {
   @override
   Widget build(BuildContext context) {
 
-    /*
-    var _markers = <Marker>[];
-    
-    _markers = [
-      Marker(
-        point: locatieAP,
-        builder: (ctx) => Icon(Icons.pin_drop),
-      ),
-    ];
-  */
-
+    //_latLngList.add(LAT, LONG)
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
