@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class OpenQuestion extends StatefulWidget {
   @override
@@ -8,6 +9,17 @@ class OpenQuestion extends StatefulWidget {
 class _OpenQuestionState extends State<OpenQuestion> {
   @override
   Widget build(BuildContext context) {
+
+    String questionString = 'Open vraag komt hier';
+
+    DatabaseReference questionRefOpen = FirebaseDatabase.instance.ref('Vragen/OpenVragen/Hoe heet deze app?/Vraag');
+    questionRefOpen.onValue.listen((DatabaseEvent latEvent) {
+      final dataOpen = latEvent.snapshot.value;
+      questionString = dataOpen.toString();
+      print(questionString);
+    });
+
+
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -31,7 +43,7 @@ class _OpenQuestionState extends State<OpenQuestion> {
             ]),
         body: Center(
             child: Text(
-              'Hier komt een open vraag.',
+              questionString,
               textAlign: TextAlign.center,
               style: const TextStyle(fontWeight: FontWeight.bold),
             )

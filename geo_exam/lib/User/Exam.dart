@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:geo_exam/Home.dart';
+import 'package:geo_exam/User/Questions/OpenQuestion.dart';
 import 'package:geo_exam/User/UserLogin.dart';
 
 class ExamQuestions extends StatefulWidget {
@@ -67,15 +68,18 @@ class _ExamQuestionsState extends State<ExamQuestions> with WidgetsBindingObserv
                   ),
                 )),
           ]),
-      body: Center(
+      body: Column(
+        children: [
+          Row(
+      children:[
           // child: Text('Exam Questions',
           //style:TextStyle(fontSize: 30),
           //),
-          child: Container(
-              margin: EdgeInsets.all(24),
+
+             /* margin: EdgeInsets.all(24),
               padding: EdgeInsets.only(top: 24),
-              alignment: Alignment.topLeft,
-              child: CircularCountDownTimer(
+              alignment: Alignment.topLeft,*/
+        CircularCountDownTimer(
                 //https://pub.dev/packages/circular_countdown_timer
                 controller: CountDownController(),
                 isReverse: true,
@@ -95,7 +99,22 @@ class _ExamQuestionsState extends State<ExamQuestions> with WidgetsBindingObserv
                 onComplete: () {
                   debugPrint('Countdown Ended');
                 },
-              ))),
+        ),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => OpenQuestion()));
+            },
+            child: const Text('Open vraag'),
+            style: ElevatedButton.styleFrom(
+                primary: Colors.red[800],
+                minimumSize: const Size(100, 80),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ))),
+      ])]),
     );
   }
 }
