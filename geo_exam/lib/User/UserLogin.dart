@@ -1,8 +1,11 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:geo_exam/UserPage.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-import 'Exam.dart';
+//import 'Exam.dart';
+List<String> items = ['', '', '', ''];
+List<DropdownMenuItem<String>>? dropdownitems;
 
 class UserLoginTab extends StatefulWidget {
   const UserLoginTab({Key? key}) : super(key: key);
@@ -12,8 +15,14 @@ class UserLoginTab extends StatefulWidget {
 }
 
 class _UserLoginTabState extends State<UserLoginTab> {
-  List<String> items =  <String>['s123463','s158563','s137783'];
   String? dropdownvalue;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFromDB();
+    //_loadToDropdown();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,52 +34,67 @@ class _UserLoginTabState extends State<UserLoginTab> {
       ),
       body: Column(
         children: <Widget>[
-           Padding(
-             padding: const EdgeInsets.all(20.0),
-             child: SizedBox(
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SizedBox(
               width: 300,
               child: DropdownButtonHideUnderline(
-                child: DropdownButton2(
+                child: DropdownButton2<String>(
                   hint: Text(
                     'Select student',
                     style: TextStyle(
                       fontSize: 20,
-                      color: Theme
-                          .of(context)
-                          .hintColor,
+                      color: Theme.of(context).hintColor,
                     ),
                   ),
-                  items: items
-                      .map((item) =>
-                      DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                          item,
-                          style: const TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ))
-                      .toList(),
+                  items: dropdownitems,
                   value: dropdownvalue,
                   onChanged: (value) {
                     setState(() {
                       dropdownvalue = value as String;
                     });
                     Navigator.push(context,
-                        MaterialPageRoute(
-                            builder: (_) => const UserPage()));
+                        MaterialPageRoute(builder: (_) => const UserPage()));
                   },
-
                   buttonHeight: 40,
                   buttonWidth: 140,
                   itemHeight: 40,
                 ),
               ),
             ),
-           ),
+          ),
         ],
       ),
     );
+  }
+
+  void _loadFromDB(){
+    DatabaseReference ref = FirebaseDatabase.instance.ref('Users');
+    ref.get().then((snapshot) {
+      for (int i = 0; i <= items.length; i++) {
+        String username = "User$i";
+        if (snapshot.hasChild(username.toString())) {
+          items[i] = snapshot.child("$username/Name").value.toString();
+          //print('check ' + username + ' | ' + Students[i]); //Debugging  purposes
+        } else {break;}
+      }
+      _loadToDropdown();
+    });
+  }
+
+  void _loadToDropdown() {
+    setState(() {
+      dropdownitems = items
+          .map((item) => DropdownMenuItem<String>(
+        value: item,
+        child: Text(
+          item,
+          style: const TextStyle(
+            fontSize: 18,
+          ),
+        ),
+      ))
+          .toList();
+    });
   }
 }
