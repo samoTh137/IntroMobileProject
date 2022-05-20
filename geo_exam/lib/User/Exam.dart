@@ -5,6 +5,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:geo_exam/Home.dart';
 import 'package:geo_exam/User/Questions/OpenQuestion.dart';
 import 'package:geo_exam/User/UserLogin.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class ExamQuestions extends StatefulWidget {
   const ExamQuestions({Key? key}) : super(key: key);
@@ -13,18 +14,28 @@ class ExamQuestions extends StatefulWidget {
   State<ExamQuestions> createState() => _ExamQuestionsState();
 }
 
-
 class _ExamQuestionsState extends State<ExamQuestions> with WidgetsBindingObserver {
+
+  late int examDurationInt;
   int appInBackgroundCounter = 0;
-
-
+  DatabaseReference examTimeRef = FirebaseDatabase.instance.ref('ExamenTijd/Tijdsduur/TimeInSeconds/');
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
+  }
 
+  int getData() {
+    examTimeRef.onValue.listen((DatabaseEvent durationEvent) {
+      final int data = int.parse(durationEvent.snapshot.value.toString());
+      setState(() {
+        examDurationInt = data;
+      });
+    });
+    print(examDurationInt);
+    return(examDurationInt);
   }
 
   @override
@@ -45,6 +56,9 @@ class _ExamQuestionsState extends State<ExamQuestions> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
+
+    CountDownController _controller = CountDownController();
+
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -81,10 +95,10 @@ class _ExamQuestionsState extends State<ExamQuestions> with WidgetsBindingObserv
               alignment: Alignment.topLeft,*/
         CircularCountDownTimer(
                 //https://pub.dev/packages/circular_countdown_timer
-                controller: CountDownController(),
+                controller: _controller,
                 isReverse: true,
                 initialDuration: 0,
-                duration: 600,
+                duration: getData(),
                 fillColor: (Colors.red[300])!,
                 fillGradient: null,
                 ringColor: Colors.grey,
