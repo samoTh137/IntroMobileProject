@@ -15,7 +15,7 @@ class _Map extends State<Map> {
   @override
   Widget build(BuildContext context) {
 
-    LatLng location = LatLng(35.68, 51.41);
+    LatLng location = LatLng(1,1);
 
     String latString;
     String longString;

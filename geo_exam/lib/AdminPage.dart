@@ -1,8 +1,13 @@
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geo_exam/Admin/ChangePassword.dart';
 import 'package:geo_exam/Admin/Manage_students/StudentList.dart';
 import 'QuestionSelection.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+String _error = "";
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -14,6 +19,8 @@ class AdminPage extends StatefulWidget {
 class _AdminPageState extends State<AdminPage> {
 
   final auth = FirebaseAuth.instance;
+
+  late int _examDuration;
 
   @override
   Widget build(BuildContext context) {
@@ -127,10 +134,73 @@ class _AdminPageState extends State<AdminPage> {
         const SizedBox(
           height: 100,
         ),
-        const Text('Here comes other stuff',
-          style:TextStyle(fontSize: 30),),
+        Flexible(child:
+        Padding(
+          padding: EdgeInsets.all(24),
+          child: TextFormField(
+              decoration: const InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'Voer de duur van het examen in (in minuten)',
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _examDuration = int.parse(value)*60;
+                  print(_examDuration);
+                });
+              }),
+        ),
+        ),
+        Flexible(child:
+        Padding(
+          padding: EdgeInsets.all(24),
+          child: ElevatedButton(
+            onPressed: () async {
+              FirebaseDatabase.instance.ref("ExamenTijd/Tijdsduur") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
+                  .set({ //Maak het stuk JSON
+                "TimeInSeconds": _examDuration
+              })
+                  .then((_) {_error = "Set exam duration to ${_examDuration/60} minutes";showErrorDialog(context);}) //Dialog voor success
+                  .catchError((error) {_error = "An error occured! Please try again.";showErrorDialog(context);}); //Dialog voor error
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Colors.red[800], // set the background color
+              fixedSize: const Size(160,60),
+            ),
+            child: const Text('Examentijd instellen'),
+          ),
+        ),
+        ),
+
       ]
       ),
     );
   }
+}
+
+showErrorDialog(BuildContext context) {
+
+  // set up the button
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Something happened!"),
+    content: Text(_error),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
