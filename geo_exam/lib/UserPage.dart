@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-
 import 'User/StartExam.dart';
 
 class UserPage extends StatefulWidget {
-  const UserPage({Key? key}) : super(key: key);
+  final String? user;
+  UserPage({Key? key, required String? this.user}) : super(key: key);
 
   @override
   _UserPageState createState() => _UserPageState();
 }
 
 class _UserPageState extends State<UserPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +36,9 @@ class _UserPageState extends State<UserPage> {
           ]
       ),
       body:
-          const StartExam(),
+          Center(
+          child: StartExam(currentUser: widget.user,)
+          )
     );
   }
 }

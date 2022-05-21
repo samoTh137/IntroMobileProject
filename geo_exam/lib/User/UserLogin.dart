@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 //import 'Exam.dart';
 List<String> items = ['', '', '', ''];
 List<DropdownMenuItem<String>>? dropdownitems;
+late final String? loggedInUser;
 
 class UserLoginTab extends StatefulWidget {
   const UserLoginTab({Key? key}) : super(key: key);
@@ -21,7 +22,6 @@ class _UserLoginTabState extends State<UserLoginTab> {
   void initState() {
     super.initState();
     _loadFromDB();
-    //_loadToDropdown();
   }
 
   @override
@@ -54,7 +54,8 @@ class _UserLoginTabState extends State<UserLoginTab> {
                       dropdownvalue = value as String;
                     });
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const UserPage()));
+                        MaterialPageRoute(builder: (_) => UserPage(user: value,)
+                        ));
                   },
                   buttonHeight: 40,
                   buttonWidth: 140,
@@ -74,8 +75,9 @@ class _UserLoginTabState extends State<UserLoginTab> {
       for (int i = 0; i <= items.length; i++) {
         String username = "User$i";
         if (snapshot.hasChild(username.toString())) {
-          items[i] = snapshot.child("$username/Name").value.toString();
-          //print('check ' + username + ' | ' + Students[i]); //Debugging  purposes
+          DataSnapshot parentSnapshot = snapshot.child(username);
+          //print(parentSnapshot.key.toString());//This is what you need to send to value
+          items[i] = parentSnapshot.key.toString();
         } else {break;}
       }
       _loadToDropdown();
