@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 FirebaseDatabase database = FirebaseDatabase.instance;
 
-String _titel ="TestTitel";  //TODO IMPLEMENT ENTERING A TITLE
 String _codeToCorrect = "";
 String _correctedCode = "";
 String _error= "";
+int nummer = 0;
 
 class AddCodeCorrection extends StatefulWidget {
   const AddCodeCorrection({Key? key}) : super(key: key);
@@ -89,12 +89,12 @@ class _AddCodeCorrectionState extends State<AddCodeCorrection> {
                       onPressed: () async {
                         _correctedCode.toString();
                         _codeToCorrect.toString();
-                        FirebaseDatabase.instance.ref("Vragen/CodeCorrectieVragen/$_titel") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
+                        FirebaseDatabase.instance.ref("Vragen/CodeCorrectieVragen/Vraag$nummer") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
                             .set({ //Maak het stuk JSON
                           "Code Te Corrigeren": _codeToCorrect,
                           "Gecorrigeerde Code": {_correctedCode}
                         })
-                            .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context);}) //Dialog voor success
+                            .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context); nummer++;}) //Dialog voor success
                             .catchError((error) {_error = "An error occured! Please try again.";showErrorDialog(context);}); //Dialog voor error
                       },
                       child: const Text('Vraag toevoegen'),

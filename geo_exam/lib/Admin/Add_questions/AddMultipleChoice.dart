@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:geo_exam/Admin/ChangePassword.dart';
 
 FirebaseDatabase database = FirebaseDatabase.instance;
 
 String _vraag = "";
+int nummer = 0;
 String _juistantwoord = "";
 List<String> _fouteantwoorden = [];
 String _foutantwoord = "";
@@ -72,7 +72,7 @@ class _AddMultipleChoiceState extends State<AddMultipleChoice> {
                           _displayDialog();
                         },
                         icon: Icon(Icons.add, size: 18),
-                        label: Text("Voeg een fout antwoord toe"),
+                        label: Text("Voeg een fout antwoord toe (in totaal 4 antwoorden)"),
                       )),
                 ),
                 Text(_fouteantwoorden.toString()),
@@ -107,13 +107,13 @@ class _AddMultipleChoiceState extends State<AddMultipleChoice> {
                     child: ElevatedButton(
                       onPressed: () async {
                         _foutantwoord = _fouteantwoorden.toString(); //Naar string om variabele in de JSON te plaatsen
-                        FirebaseDatabase.instance.ref("Vragen/MultipleChoice/$_vraag") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
+                        FirebaseDatabase.instance.ref("Vragen/MultipleChoice/Vraag$nummer") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
                           .set({ //Maak het stuk JSON
                             "Vraag": _vraag,
                             "Correct Antwoord": {_juistantwoord},
                             "Foute Antwoorden": {_foutantwoord}
                           })
-                        .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context);}) //Dialog voor success
+                        .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context);nummer++;}) //Dialog voor success
                         .catchError((error) {_error = "An error occured! Please try again.";showErrorDialog(context);}); //Dialog voor error
                         _fouteantwoorden.clear(); //Clear zodat de lijst van foute antwoorden leeg is
                       },

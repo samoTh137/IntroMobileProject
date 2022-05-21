@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:geo_exam/Home.dart';
+import 'package:geo_exam/User/Questions/CodeCorrection.dart';
+import 'package:geo_exam/User/Questions/MultipleChoice.dart';
 import 'package:geo_exam/User/Questions/OpenQuestion.dart';
 import 'package:geo_exam/User/UserLogin.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -126,13 +128,41 @@ class _ExamQuestionsState extends State<ExamQuestions> with WidgetsBindingObserv
                   MaterialPageRoute(
                       builder: (_) => OpenQuestion(currentUser: widget.currentUser,)));
             },
-            child: const Text('Open vraag'),
+            child: const Text('Open Vragen'),
             style: ElevatedButton.styleFrom(
                 primary: Colors.red[800],
                 minimumSize: const Size(100, 80),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                ))),
+                ))), //Open Question
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => MultipleChoice(currentUser: widget.currentUser,)));
+            },
+            child: const Text('Multiple Choice'),
+            style: ElevatedButton.styleFrom(
+                primary: Colors.red[800],
+                minimumSize: const Size(100, 80),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ))), //Multiple Choice
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => CodeCorrection(currentUser: widget.currentUser,)));
+            },
+            child: const Text('Code Correctie'),
+            style: ElevatedButton.styleFrom(
+                primary: Colors.red[800],
+                minimumSize: const Size(100, 80),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ))), //Code Correction
       ])]),
     );
   }
