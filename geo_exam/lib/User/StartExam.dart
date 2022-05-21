@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 FirebaseDatabase database = FirebaseDatabase.instance;
 
 String _error= "";
+String currentUser = "User1"; //TODO: current user uit database halen
 
 class StartExam extends StatefulWidget {
   const StartExam({Key? key}) : super(key: key);
@@ -64,7 +65,7 @@ class _StartExam extends State<StartExam> {
 
   _sendToFirebase() {
     _getCurrentLocation();
-    FirebaseDatabase.instance.ref("Users/User1/Locatie") //TODO: Mogelijk student ID toevoegen
+    FirebaseDatabase.instance.ref("Users/${currentUser}/Locatie") //TODO: Mogelijk student ID toevoegen
         .set({
       "Lat": {_currentPosition.latitude},
       "Long": {_currentPosition.longitude}

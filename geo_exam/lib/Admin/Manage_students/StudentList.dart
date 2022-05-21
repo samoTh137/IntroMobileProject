@@ -8,7 +8,10 @@ class StudentList extends StatefulWidget {
 }
 
 List<String> Students = ['', '', '', '', '', '', '', '', '', ''];
+List<String> Locations = ['', '', '', '', '', '', '', '', '', ''];
+
 String text = 'Hier komt een lijst van alle studenten\n';
+String locatieText = "Hier komt een lijst van alle locaties \n";
 
 class _StudentList extends State<StudentList> {
   @override
@@ -42,6 +45,11 @@ class _StudentList extends State<StudentList> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
+
+              Text(locatieText,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               ElevatedButton(
                   onPressed: () {
                     DatabaseReference ref = FirebaseDatabase.instance.ref('Users');
@@ -65,6 +73,32 @@ class _StudentList extends State<StudentList> {
                         }
                       });
                     });
+
+                    ref.once().then((snapshot) {
+                      for (int i = 0; i <= Locations.length; i++) {
+                        String username = "User$i";
+                        if (snapshot.snapshot.hasChild(username.toString())) {
+                          String locationUntrimmed = snapshot.snapshot.child("$username/Locatie").value.toString();
+                          if(locationUntrimmed != "null")
+                            {
+                              Locations[i] = locationUntrimmed.substring(1,locationUntrimmed.length-1);
+                            }
+                          else {Locations[i] = locationUntrimmed;}
+                          print('check ' + username + ' | ' + Locations[i]); //Debugging  purposes
+                        } else {
+                          break;
+                        }
+                      }
+                      setState(() {
+                        locatieText = '';
+                        for (int x = 0; x < Locations.length; x++) {
+                          if (Locations[x].isNotEmpty) {
+                            locatieText = locatieText + Locations[x] + '\n';
+                          }
+                        }
+                      });
+                    });
+
                   },
                   child: const Text("Update")),
               ElevatedButton(

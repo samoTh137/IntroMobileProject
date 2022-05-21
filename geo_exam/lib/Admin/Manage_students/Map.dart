@@ -33,6 +33,7 @@ class _Map extends State<Map> {
       print(latD);
     });
 
+
     DatabaseReference mapRefLong = FirebaseDatabase.instance.ref('Users/User1/Locatie/Long');
     mapRefLong.onValue.listen((DatabaseEvent longEvent) {
       final dataLong = longEvent.snapshot.value;
@@ -85,7 +86,7 @@ class _Map extends State<Map> {
                ],
               ),
             Container(
-              height: 600,
+              height: 400,
               child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children:[
@@ -105,15 +106,10 @@ class _Map extends State<Map> {
                         markers:
                           _markers,
                       ),
-
-
-
                   ],
-
                   ),
                 ),
                 ),
-
               ],
             ),),
 
@@ -127,14 +123,7 @@ class _Map extends State<Map> {
 
 var locatieAP = LatLng(51.23033264668601, 4.413681389072121);
 
-List<LatLng> _latLngList = [
-  /*LatLng(13, 77.5),
-  LatLng(13.02, 77.51),
-  LatLng(13.05, 77.53),
-  LatLng(13.155, 77.54),
-  LatLng(13.159, 77.55),
-  LatLng(13.17, 77.55),*/
-]; //TODO: Haal locaties van database
+List<LatLng> _latLngList = [];
 
 List<Marker> _markers = _latLngList
     .map((point) => Marker(
