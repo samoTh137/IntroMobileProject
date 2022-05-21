@@ -15,6 +15,8 @@ String _error = '';
 String _email = '';
 String _password = '';
 
+
+
 class _AdminLoginTabState extends State<AdminLoginTab> {
 
   final auth = FirebaseAuth.instance;
@@ -44,7 +46,7 @@ class _AdminLoginTabState extends State<AdminLoginTab> {
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
-                    hintText: 'Enter valid email id as abc@gmail.com'),
+                    hintText: 'Enter valid email id as abc@mail.com'),
                 onChanged: (value) {
                   setState(() {
                     _email = value.trim();
@@ -72,8 +74,9 @@ class _AdminLoginTabState extends State<AdminLoginTab> {
             ),
             //Forgot password
             TextButton(
-              onPressed: (){
-                //TODO FORGOT PASSWORD SCREEN GOES HERE
+              onPressed: () async {
+                await FirebaseAuth.instance
+                    .sendPasswordResetEmail(email: _email);
                 //print('Forgot password button pressed');
               },
               child: const Text(

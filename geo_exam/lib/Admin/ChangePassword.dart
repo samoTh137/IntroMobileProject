@@ -53,7 +53,7 @@ class _ChangePassword extends State<ChangePassword> {
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'E-mail...',
+                            labelText: 'E-mail',
                             hintText: 'Voer uw e-mail adres in'),
                         onChanged: (value) {
                           setState(() {
@@ -76,7 +76,7 @@ class _ChangePassword extends State<ChangePassword> {
                         obscureText: true,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Huidig wachtwoord...',
+                            labelText: 'Huidig wachtwoord',
                             hintText: 'Voer uw huidig wachtwoord in'),
                         onChanged: (value) {
                           setState(() {
@@ -98,7 +98,7 @@ class _ChangePassword extends State<ChangePassword> {
                         obscureText: true,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Nieuw wachtwoord...',
+                            labelText: 'Nieuw wachtwoord',
                             hintText: 'Voer een nieuw sterk wachtwoord in'),
                         onChanged: (value) {
                           setState(() {
@@ -123,18 +123,27 @@ class _ChangePassword extends State<ChangePassword> {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                             email: _email,
                             password: _password
-
                         );
+                        FirebaseAuth.instance
+                            .authStateChanges()
+                            .listen((User? user)async {
+                          if (user != null) {
+                            await user.updatePassword(_newPassword);
+                            setState(() {
+                            _error = 'Success! Your password has been reset!';
+                            });
+
+                          }
+                        });
                       }
                       on FirebaseAuthException catch (e) {
                         if (!_email.contains('@')) {
                           _error = e.toString();
-                          showAlertDialog(context);
                         } else if (e != null ){
                           _error = e.toString();
-                          showAlertDialog(context);
                         }
                       }
+                      showAlertDialog(context);
                     },
                     child: const Text(
                       'Wijzigen',
@@ -161,7 +170,7 @@ showAlertDialog(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Error Occured"),
+    title: Text("Something happened!"),
     content: Text(_error),
     actions: [
       okButton,
