@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 String questionString = 'Open vraag komt hier';
+String _antwoord = '';
+
 
 class OpenQuestion extends StatefulWidget {
   @override
@@ -47,7 +49,7 @@ class _OpenQuestionState extends State<OpenQuestion> {
             child: Text(
               questionString,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             )
         )
     );

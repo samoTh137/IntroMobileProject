@@ -84,7 +84,11 @@ class _ExamQuestionsState extends State<ExamQuestions> with WidgetsBindingObserv
           ]),
       body: Column(
         children: [
+          const SizedBox(
+            height: 300,
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children:[
           // child: Text('Exam Questions',
           //style:TextStyle(fontSize: 30),
