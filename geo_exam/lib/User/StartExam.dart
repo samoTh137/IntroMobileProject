@@ -44,7 +44,7 @@ class _StartExam extends State<StartExam> {
 
                   Navigator.push(context,
                       MaterialPageRoute(
-                          builder: (_) => const ExamQuestions()));
+                          builder: (_) => ExamQuestions(currentUser: widget.currentUser,)));
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.red[800],

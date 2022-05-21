@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 FirebaseDatabase database = FirebaseDatabase.instance;
 
 String _vraag = "";
+int nummer = 0;
 String _antwoord = "";
 String _error= "";
 
@@ -88,12 +89,13 @@ class _AddOpenQuestionState extends State<AddOpenQuestion> {
                     padding: const EdgeInsets.all(24.0),
                       child: ElevatedButton(
                         onPressed: () async {
-                          FirebaseDatabase.instance.ref("Vragen/OpenVragen/$_vraag") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
+                          print('Vraag' + nummer.toString());
+                          FirebaseDatabase.instance.ref("Vragen/OpenVragen/Vraag${nummer.toString()}") //Set naar de juiste firebase "Tak" (variabele zodat het een nieuwe tak maakt)
                               .set({ //Maak het stuk JSON
                             "Vraag": _vraag,
                             "Correct Antwoord": {_antwoord}
                           })
-                              .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context);}) //Dialog voor success
+                              .then((_) {_error = "Successfully uploaded Question!";showErrorDialog(context); nummer++;}) //Dialog voor success
                               .catchError((error) {_error = "An error occured! Please try again.";showErrorDialog(context);}); //Dialog voor error
                         },
                       style: ElevatedButton.styleFrom(

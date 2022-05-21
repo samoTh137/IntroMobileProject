@@ -8,7 +8,8 @@ import 'package:geo_exam/User/UserLogin.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class ExamQuestions extends StatefulWidget {
-  const ExamQuestions({Key? key}) : super(key: key);
+  final String? currentUser;
+  const ExamQuestions({Key? key, required String? this.currentUser}) : super(key: key);
 
   @override
   State<ExamQuestions> createState() => _ExamQuestionsState();
@@ -123,7 +124,7 @@ class _ExamQuestionsState extends State<ExamQuestions> with WidgetsBindingObserv
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (_) => OpenQuestion()));
+                      builder: (_) => OpenQuestion(currentUser: widget.currentUser,)));
             },
             child: const Text('Open vraag'),
             style: ElevatedButton.styleFrom(
