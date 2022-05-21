@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+String questionString = 'Open vraag komt hier';
+
 class OpenQuestion extends StatefulWidget {
   @override
   _OpenQuestionState createState() => _OpenQuestionState();
@@ -10,13 +12,13 @@ class _OpenQuestionState extends State<OpenQuestion> {
   @override
   Widget build(BuildContext context) {
 
-    String questionString = 'Open vraag komt hier';
-
     DatabaseReference questionRefOpen = FirebaseDatabase.instance.ref('Vragen/OpenVragen/Hoe heet deze app?/Vraag');
     questionRefOpen.onValue.listen((DatabaseEvent latEvent) {
       final dataOpen = latEvent.snapshot.value;
-      questionString = dataOpen.toString();
-      print(questionString);
+      setState(() {
+        questionString = dataOpen.toString();
+      });
+      //print(questionString);
     });
 
 
